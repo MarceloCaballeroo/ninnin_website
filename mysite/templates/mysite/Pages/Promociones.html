@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ninnin</title>
+    {% load static %}
+    <!-- Estilos CSS de Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- Estilo personalizado -->
+    <link rel="stylesheet" href="{% static 'Layout/style.css' %}">
+    <link rel="icon" type="image/svg+xml" href="{% static 'Components/icons/icono.svg' %}">
+</head>
+<body>
+    <!-- Navbar -->
+    {% include 'mysite/Components/navbar.html' %}
+
+    <div class="alert alert-info text-center" role="alert">
+        ¡Aprovecha nuestras promociones especiales por tiempo limitado!
+    </div>
+
+    <!-- Contenedor para la tarjeta de promoción especial -->
+    <div id="promocion" class="card bg-dark text-white">
+        <div class="row">
+            <!-- Imagen 1 -->
+            <div class="col-md-4">
+                <img src="{% static 'Components/images/image1.jpg' %}" class="card-img" alt="">
+            </div>
+            <!-- Imagen 2 -->
+            <div class="col-md-4">
+                <img src="{% static 'Components/images/image2.jpg' %}" class="card-img" alt="">
+            </div>
+            <!-- Imagen 3 -->
+            <div class="col-md-4">
+                <img src="{% static 'Components/images/image3.jpg' %}" class="card-img" alt="">
+            </div>
+        </div>
+        <div class="card-img-overlay bg-brown">
+            <h1 class="card-title borde-negro">🏮 Promoción Ninnin Especial 🏮</h1>
+            <br>
+            <h2 class="card-text borde-negro">Desert + Ninnin Picante + Vegan por 20.000 CLP</h2>
+            <h2 class="card-text borde-negro">💸 CON UN 50% DE DESCUENTO 💸</h2>
+        </div>
+    </div>
+
+    <!-- Tres tarjetas pequeñas con imágenes aleatorias -->
+    <div class="container mt-4">
+        <div class="row">
+            <!-- Tarjeta 1 -->
+            <div class="col-md-4 mb-4">
+                <div class="card" style="background-color:#FCD1A0 ;">
+                    <img src="{% static 'Components/images/small_image1.jpg' %}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">🍽️ ¡Disfruta con nosotros! 🍽️</h5>
+                        <p class="card-text"> Plato de la semana por 5.000 🐉 </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta 2 -->
+            <div class="col-md-4 mb-4">
+                <div class="card" style="background-color:#FCD1A0 ;">
+                    <img src="{% static 'Components/images/small_image2.jpg' %}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">🥗 ¡Tu día con energía! 🥗</h5>
+                        <p class="card-text">Oferta 2X1 🤑 </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Tarjeta 3 -->
+            <div class="col-md-4 mb-4">
+                <div class="card" style="background-color:#FCD1A0 ;">
+                    <img src="{% static 'Components/images/small_image3.jpg' %}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">✨ ¡Saborea la experiencia! ✨</h5>
+                        <p class="card-text">Compras superiones a 15.000 gana un Ninnin🥡</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    {% include 'mysite/Components/footer.html' %}
+
+    <!-- jQuery y Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+    <!-- Script personalizado -->
+    <script src="{% static 'Components/script.js' %}"></script>
+</body>
+</html>

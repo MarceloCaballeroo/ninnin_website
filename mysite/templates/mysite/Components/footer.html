@@ -1,0 +1,22 @@
+{% load static %}
+<!-- alumnos/templates/alumnos/Components/footer.html -->
+<footer class="page-footer font-small pt-4 mt-4 d-flex flex-column align-items-center justify-content-center" style="background-color: #7D1917; color: white;">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-md-4 mt-md-0 mt-3">
+                <img src="{% static 'Components/icons/icono.svg' %}" alt="Logo" class="footer-logo mb-2">
+                <p>El mejor lugar para disfrutar de la comida china.</p>
+            </div>
+            <div class="col-md-8 mb-md-0 mb-3">
+                <h5 class="text-uppercase">Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="{% url 'comidas' %}" class="footer-link">Menú</a></li>
+                    <li><a href="{% url 'sucursal' %}" class="footer-link">Sucursales</a></li>
+                    <li><a href="{% url 'reservacion' %}" class="footer-link">Reservaciones</a></li>
+                    <li><a href="#" class="footer-link">Acerca de nosotros</a></li> <!-- Solo de muestra -->
+                    <li><a href="#" class="footer-link">Política de privacidad</a></li><!-- Solo de muestra -->
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>

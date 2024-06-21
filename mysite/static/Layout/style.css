@@ -1,0 +1,182 @@
+/* Estilos Generales */
+body {
+  background: radial-gradient(#e5e7eb 1px, transparent 1px);
+  background-color: #FFEFD0;
+  background-size: 16px 16px;
+  font-family: Arial, sans-serif;
+}
+
+h3 {
+  font-size: 18px;
+  margin-top: 10px;
+}
+
+p {
+  font-size: 14px;
+}
+
+.border-right {
+  border-right: 1px solid #000 !important; /* Asegura que este estilo tenga prioridad */
+}
+
+/* Barra de Navegación */
+.navbar {
+  background-color: #7D1917;
+}
+
+.nav-link {
+  color: white !important;
+  font-size: 18px;
+}
+
+.nav-link:hover {
+  color: #998955 !important;
+}
+
+.navbar-logo {
+  width: 130px;
+  height: auto;
+}
+
+@media (min-width: 992px) {
+  .custom-nav {
+    transform: translateX(-50px);
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar-logo {
+    width: 80px; /* Tamaño reducido para dispositivos móviles */
+  }
+
+  .navbar-nav .nav-link {
+    padding: 0.5rem 1rem; /* Aumenta el área de toque */
+  }
+}
+
+/* Footer */
+.footer-logo {
+  width: 250px;
+  margin-bottom: 20px;
+}
+
+.page-footer {
+  color: white;
+  background-color: #7D1917;
+}
+
+.footer-link {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-link:hover {
+  color: #998955;
+}
+
+@media (max-width: 768px) {
+  .footer-logo {
+    width: 80px; /* Tamaño reducido para dispositivos móviles */
+  }
+}
+
+/* Carrousel */
+.carousel-inner img {
+  width: 30%;
+  height: 100%; 
+}
+
+.carousel-caption {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Sección de Servicios */
+.icon-container {
+  padding: 5px;
+  display: inline-block;
+}
+
+.icon {
+  height: 100px;
+  margin-bottom: 20px;
+}
+
+/* Sección de Contacto */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Ajusta según tus necesidades */
+  background-image: url('../Components/images/6.png'); /* Cambia a la imagen deseada */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-text {
+  text-align: center;
+  color: white;
+  text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.8); /* Sombra para mejorar la legibilidad */
+}
+
+.hero-text h1 {
+  margin: 0;
+  font-size: 2.5em; /* Ajusta según tus necesidades */
+}
+
+.hero-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: black; /* Cambia al color deseado */
+  color: white;
+  text-decoration: none;
+  border: none;
+  font-size: 1em;
+  border-radius: 5px; /* Ajusta según tus necesidades */
+}
+
+/* Formulario de Reservación */
+.form-container {
+  background-color: burlywood; /* Fondo blanco */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+}
+
+.form-group label {
+  color: #8b5e3c; /* Texto marrón rojizo */
+}
+
+.form-control {
+  border-color: #8b5e3c; /* Borde marrón rojizo */
+}
+
+.btn-primary {
+  background-color: #8b5e3c; /* Fondo marrón rojizo */
+  border-color: #8b5e3c; /* Borde marrón rojizo */
+}
+
+.btn-primary:hover {
+  background-color: #714529; /* Fondo marrón oscuro al pasar el ratón */
+  border-color: #714529; /* Borde marrón oscuro al pasar el ratón */
+}
+
+.form-control::placeholder {
+  color: #8b5e3c; /* Color del placeholder marrón rojizo */
+}
+
+.card-title {
+  color: #8b5e3c;
+}
+
+/* Otros Estilos */
+.borde-negro {
+  color: rgb(235, 210, 175);
+  -webkit-text-stroke-width: 1.2px; /* Anchura del borde */
+  -webkit-text-stroke-color: black; /* Color del borde */
+  font-weight: bold;
+}
