@@ -56,7 +56,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates",],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -68,6 +68,10 @@ TEMPLATES = [
         },
     },
 ]
+#cambiar la redireccion a la vista de admin
+LOGIN_REDIRECT_URL = "index"
+
+#LOGOUT_REDIRECT_URL = "index"
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
