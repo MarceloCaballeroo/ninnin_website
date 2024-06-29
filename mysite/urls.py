@@ -10,5 +10,7 @@ urlpatterns = [
     path('promociones/', views.promociones, name='promociones'),
     path('reservacion/', views.reservacion, name='reservacion'),
     path('sucursal/', views.sucursal, name='sucursal'),
+
+    path('accounts/', include("django.contrib.auth.urls")),
     
 ]
