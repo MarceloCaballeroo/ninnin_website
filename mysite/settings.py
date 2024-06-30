@@ -69,9 +69,10 @@ TEMPLATES = [
     },
 ]
 #cambiar la redireccion a la vista de admin
+
 LOGIN_REDIRECT_URL = "index"
 
-#LOGOUT_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "index"
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 

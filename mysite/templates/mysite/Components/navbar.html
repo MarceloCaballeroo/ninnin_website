@@ -39,8 +39,20 @@
                         {% else %}
                             <a class="dropdown-item" href="{% url 'login' %}">Login</a>
                         {% endif %}
+
+
+
                     </div>
+                    <div></div>
                 </li>
+                <li {%if clase == 'galeria'%}
+                                class="current" {%endif%}><a href="{% url 'galeria'%}">Galeria</a></li>
+								{% if user.is_authenticated %}
+
+								{% else %}
+								<li {%if clase == 'registro'%}
+                                class="current" {%endif%}><a href="{% url 'registro'%}">Registro</a></li>
+								{% endif %}
             </ul>
         </div>
     </div>

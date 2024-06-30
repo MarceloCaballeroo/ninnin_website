@@ -12,5 +12,6 @@ urlpatterns = [
     path('sucursal/', views.sucursal, name='sucursal'),
 
     path('accounts/', include("django.contrib.auth.urls")),
+
     
 ]

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth.models import User
 from .forms import UserForm
 from django.contrib.auth.forms import UserCreationForm
 
@@ -18,12 +19,19 @@ def login(request):
         return render(request, 'Clientes/login.html')
 
 
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('Clientes/login')
+def registro(request):
+    if request.method != "POST":
+        context={"clase": "registro"}
+        return render(request, 'clientes/registro.html', context)
     else:
-        form = UserCreationForm()
-    return render(request, 'Clientes/register.html', {'form': form})
+        nombre = request.POST["nombre"]
+        email = request.POST["email"]
+        password = request.POST["password"]
+        user = User.objects.create_user(nombre, email, password)
+        user.save()
+        context={"clase": "registro", "mensaje":"Los datos fueron registrados"}
+        return render(request, 'clientes/registro.html', context)
+    
+def galeria(request):
+    context={"clase": "galeria"}
+    return render(request, 'clientes/galeria.html', context)
