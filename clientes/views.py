@@ -35,3 +35,4 @@ def registro(request):
 def galeria(request):
     context={"clase": "galeria"}
     return render(request, 'clientes/galeria.html', context)
+
