@@ -1,5 +1,10 @@
-{% if user.is_staff %}
-Es de la empresa										
-{% else %}
-Este usuario no trabaja aca
-{% endif %}
+{% extends "clientes/base.html" %}
+{%block content %}
+
+            {% if user.is_staff %}
+				Es de la empresa										
+            {% else %}
+                Este usuario no trabaja aca
+            {% endif %}
+            
+{% endblock %}

@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
+{% extends "clientes/base.html" %}
+{%block content %}
     <div class="container">
         {% if mensaje %}
         <div class="alert alert-primary" role="alert" id="idMensaje">
@@ -33,6 +26,7 @@
             <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
     </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     
     <script>
@@ -40,8 +34,4 @@
         $("#idMensaje").delay(2000).fadeOut("slow");
     })
     </script>
-
-
-
-</body>
-</html>
+{% endblock %}
