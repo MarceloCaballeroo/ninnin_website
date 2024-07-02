@@ -4,6 +4,9 @@ from django.contrib.auth.models import User
 from .forms import UserForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import Cliente
+from django.contrib.auth.decorators import login_required
+from .forms import ReservaForm
+
 
 def login(request):
     if request.method == 'POST':
@@ -41,3 +44,31 @@ def crud_clientes(request):
     clientes = Cliente.objects.all()
     context = {'clientes' : clientes}
     return render(request, 'clientes/clientes_list.html',context)
+
+#preparacion vista final
+@login_required
+def menu(request):
+    request.session["usuario"] = "Jcampos"
+    usuario = request.session["usuario"]
+    context = {'usuario': usuario}
+    return render(request, 'clientes/clientes_list.html',context)
+      
+def reserva_Form(request):
+    print("estoy en el controlador reserva...")
+    context = {}
+
+    if request.method == "POST":
+        print("controlador es un post...")
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Limpiar form
+            form =ReservaForm()
+            context = {'mensaje': "Ok, datos grabados..", "form": form}
+        else:
+            context = {'form': form}
+    else:
+        form = ReservaForm()
+        context = {'form': form}
+    return render(request, "clientes/reserva.html", context)
+

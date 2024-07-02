@@ -1,0 +1,26 @@
+{% extends "clientes/base.html" %}
+{%block content %}
+<div style="text-align: center;">
+    <h2>Reservación</h2><br>
+
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_table }}
+
+        <input type="submit" name="opcion" value="Agregar">
+    </form> <br><br>
+    <br>
+
+    <div class="alert alert-primary" role="alert" id="idMensaje">
+        {% if mensaje %}
+        {{ mensaje }}
+        {% endif %}
+    </div>
+    
+    <br>
+    <a href="{% url 'crud' %}">Volver</a>
+    
+</div>
+
+
+{% endblock %}

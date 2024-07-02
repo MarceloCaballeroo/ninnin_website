@@ -16,6 +16,7 @@ class Cliente(models.Model):
 
 
 class Reserva(models.Model):
+    id_reserva = models.AutoField(db_column='idreserva', primary_key=True)
     cli_reserva = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     nombre = models.CharField(max_length=100)
     email = models.EmailField()

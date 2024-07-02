@@ -70,7 +70,7 @@ TEMPLATES = [
 ]
 #cambiar la redireccion a la vista de admin
 
-LOGIN_REDIRECT_URL = "index"
+LOGIN_REDIRECT_URL = "menu"
 
 LOGOUT_REDIRECT_URL = "index"
 
