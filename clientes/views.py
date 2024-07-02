@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from .forms import UserForm
 from django.contrib.auth.forms import UserCreationForm
+from .models import Cliente
 
 def login(request):
     if request.method == 'POST':
@@ -36,3 +37,7 @@ def galeria(request):
     context={"clase": "galeria"}
     return render(request, 'clientes/galeria.html', context)
 
+def crud_clientes(request):
+    clientes = Cliente.objects.all()
+    context = {'clientes' : clientes}
+    return render(request, 'clientes/clientes_list.html',context)
