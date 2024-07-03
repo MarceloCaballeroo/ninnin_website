@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cliente , Reserva
+from .models import Cliente, Reserva
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -12,7 +12,11 @@ class UserForm(forms.ModelForm):
 class ReservaForm(forms.ModelForm):
     class Meta:
         model = Reserva
-        fields = "__all__"
+        fields = ['nombre', 'email', 'telefono', 'fecha_reserva', 'hora']
         widgets = {
-            'hora': forms.TimeInput(format='%H:%M', attrs={'type': 'time'}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'telefono': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+569XXXXXXXX'}),
+            'fecha_reserva': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'hora': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
         }

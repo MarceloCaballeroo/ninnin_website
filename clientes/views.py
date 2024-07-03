@@ -52,7 +52,8 @@ def menu(request):
     usuario = request.session["usuario"]
     context = {'usuario': usuario}
     return render(request, 'clientes/clientes_list.html',context)
-      
+
+
 def reserva_Form(request):
     print("estoy en el controlador reserva...")
     context = {}
@@ -63,7 +64,7 @@ def reserva_Form(request):
         if form.is_valid():
             form.save()
             # Limpiar form
-            form =ReservaForm()
+            form = ReservaForm()
             context = {'mensaje': "Ok, datos grabados..", "form": form}
         else:
             context = {'form': form}
@@ -72,3 +73,93 @@ def reserva_Form(request):
         context = {'form': form}
     return render(request, "clientes/reserva.html", context)
 
+def clientes_del (request,pk):
+    context={}
+    try:
+        cliente = Cliente.objects.get(id=pk)
+
+        cliente.delete()
+        mensaje = "Datos de cliente eliminados"
+        clientes = Cliente.objects.all()
+        context = {'clientes' : clientes, 'mensaje' : mensaje}
+        return render(request,'clientes/clientes_list.html',context)
+    except:
+        mensaje="Error, id no existe..."
+        clientes = Cliente.objects.all()
+        context = {'clientes' : clientes, 'mensaje': mensaje }
+        return render(request, 'clientes/clientes_list.html', context)
+    
+
+def clientes_findEdit(request,pk):
+    if pk != "":
+        cliente = Cliente.objects.get(id=pk)
+        user = User.objects.all()
+
+        print(type(cliente.nombre))
+
+        context={'cliente':cliente, 'user':user }
+        if cliente:
+            return render(request, 'clientes/clientes_edit.html',context)
+        else:
+                context={'mensaje':"Error, id no existe"}
+                return render(request, 'clientes/cliente_list.html', context)
+        
+
+def clientesUpdate(request):
+    if request.method == "POST":
+        id = request.POST.get("ID")
+        nombre = request.POST.get("nombre")
+        apellido = request.POST.get("apellido")
+        fecha_nacimiento = request.POST.get("fecha_nacimiento")
+        email = request.POST.get("correo")
+        password = request.POST.get("password")
+        user_id = request.POST.get("IDuser")
+
+        try:
+            cliente = Cliente.objects.get(id=id)
+            cliente.nombre = nombre
+            cliente.apellido = apellido
+            cliente.fecha_nacimiento = fecha_nacimiento
+            cliente.email = email
+            cliente.password = password
+            cliente.user_id = user_id
+            cliente.save()
+
+            context = {'mensaje': "Datos actualizados", 'cliente': cliente}
+            return render(request, 'clientes/clientes_edit.html', context)
+        except Cliente.DoesNotExist:
+            context = {'mensaje': "Error, cliente no existe"}
+            return render(request, 'clientes/clientes_list.html', context)
+    else:
+        clientes = Cliente.objects.all()
+        context = {'clientes': clientes}
+        return render(request, 'clientes/clientes_list.html', context)
+
+def clientesAdd(request):
+    if request.method != "POST":
+        users = User.objects.all()  # Obtener todos los usuarios
+        context = {'users': users}
+        return render(request, 'clientes/clientes_add.html', context)
+    else:
+        nombre = request.POST.get("nombre")
+        apellido = request.POST.get("apellido")
+        fecha_nacimiento = request.POST.get("fecha_nacimiento")
+        email = request.POST.get("correo")
+        password = request.POST.get("password")
+        user_id = request.POST.get("user")
+
+        if not user_id:
+            context = {'mensaje': "Seleccione un usuario", 'users': User.objects.all()}
+            return render(request, 'clientes/clientes_add.html', context)
+
+        cliente = Cliente.objects.create(
+            nombre=nombre,
+            apellido=apellido,
+            fecha_nacimiento=fecha_nacimiento,
+            email=email,
+            password=password,
+            user_id=user_id
+        )
+
+        context = {'mensaje': "Cliente añadido", 'users': User.objects.all()}
+        return render(request, 'clientes/clientes_add.html', context)

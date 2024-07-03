@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        {% if cliente %}
+            <h2>Actualizar Datos</h2> <br>
+
+            <form action="{% url 'clientesUpdate' %}" method="POST">
+                {% csrf_token %}
+
+                <pre>ID:                        <input type="text" name="ID" value="{{cliente.id}}" readonly></pre>
+                <pre>Nombre:                    <input type="text" name="nombre" value="{{cliente.nombre}}"></pre>
+                <pre>Apellido:                  <input type="text" name="apellido" value="{{cliente.apellido}}"></pre>
+                <pre>Fecha nacimiento:          <input type="date" name="fecha_nacimiento" value="{{cliente.fecha_nacimiento}}"></pre>
+                <pre>Correo:                    <input type="text" name="correo" value="{{cliente.email}}"></pre>
+                <pre>Password:                  <input type="text" name="password" value="{{cliente.password}}"></pre>
+                <input type="hidden" name="IDuser" value="{{cliente.user_id}}">
+
+                <input type="submit" name="opcion" value="Actualizar">
+            </form> <br><br>
+        {% endif %}
+        <div id="idMensajes">
+            {% if mensaje %}
+                {{mensaje}}
+            {% endif %}
+        </div>
+        <br><br>
+        <a href="{% url 'crud' %}">volver</a>
+    </div>    
+</body>
+</html>

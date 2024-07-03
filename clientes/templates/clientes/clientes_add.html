@@ -1,1 +1,35 @@
-_
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="text-align: center;">
+        <h2>Formulario CRUD de Cliente</h2> <br>
+        <form action="{% url 'clientesAdd' %}" method="POST">
+            {% csrf_token %}
+
+            <pre>Nombre:                    <input type="text" name="nombre"></pre>
+            <pre>Apellido:                  <input type="text" name="apellido"></pre>
+            <pre>Fecha nacimiento:          <input type="date" name="fecha_nacimiento"></pre>
+            <pre>Correo:                    <input type="text" name="correo"></pre>
+            <pre>Password:                  <input type="text" name="password"></pre>
+            <pre>User                       <select name="user">
+                {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                {% endfor %}
+            </select></pre>
+            <input type="submit" name="opcion" value="Agregar">
+        </form> <br><br>
+        <a href="{% url 'crud' %}">Volver</a>
+        <br>
+        <div id="idMensajes">
+            {% if mensaje %}
+            {{ mensaje }}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

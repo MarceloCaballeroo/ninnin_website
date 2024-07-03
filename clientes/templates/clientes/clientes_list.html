@@ -11,8 +11,17 @@
 </head>
 <body>
     
-    <h1>Editar datos Cliente</h1>
-    <button>Agregar</button>
+    <h1>Editar datos Cliente</h1> <br>
+    <br>
+    <button type="button">
+        <a href="{% url 'clientesAdd' %}"> Agregar</a>
+    </button>
+
+        <div id="idMensaje">
+            {% if mensaje %}
+                    {{mensaje}}
+            {% endif %}
+        </div>
 
     <table>
         {% if clientes %}
@@ -25,7 +34,8 @@
                     <th scope="col">Fecha de nacimiento</th>
                     <th scope="col">Correo</th>
                     <th scope="col">Contraseña</th>
-                    <th scope="col">ID usuario</th>
+                    <th scope="col">usuario</th>
+                    <th scope="col">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,13 +47,16 @@
                 <td>{{ x.fecha_nacimiento }}</td>
                 <td>{{ x.email }}</td> 
                 <td>{{ x.password }}</td> 
-                <td>{{ x.user_id }}</td>
+                <td>{{ x.user }}</td>
+                <td> 
+                    <a href="{% url 'clientes_findEdit' pk=x.id  %}">Modificar</a>
+                    <a href="{% url 'clientes_del' pk=x.id  %}">Eliminar</a>
+                </td>
                 
             </tr>
             {% endfor %}
         </tbody>
     </table>
-         
         </tbody>
         {% else %}
         <tr>
