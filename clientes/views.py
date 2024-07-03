@@ -53,25 +53,25 @@ def menu(request):
     context = {'usuario': usuario}
     return render(request, 'clientes/clientes_list.html',context)
 
-
 def reserva_Form(request):
     print("estoy en el controlador reserva...")
     context = {}
 
     if request.method == "POST":
         print("controlador es un post...")
-        form = ReservaForm(request.POST)
+        form = ReservaForm(request.POST, user=request.user)
         if form.is_valid():
             form.save()
             # Limpiar form
-            form = ReservaForm()
+            form = ReservaForm(user=request.user)
             context = {'mensaje': "Ok, datos grabados..", "form": form}
         else:
             context = {'form': form}
     else:
-        form = ReservaForm()
+        form = ReservaForm(user=request.user)
         context = {'form': form}
     return render(request, "clientes/reserva.html", context)
+
 
 def clientes_del (request,pk):
     context={}

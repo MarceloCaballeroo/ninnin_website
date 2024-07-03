@@ -180,3 +180,7 @@ p {
   -webkit-text-stroke-color: black; /* Color del borde */
   font-weight: bold;
 }
+
+.form-container {
+  margin-bottom: 0; /* Asegúrate de que no haya márgenes no deseados */
+}
