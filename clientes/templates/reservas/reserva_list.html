@@ -12,7 +12,10 @@
 <body>
     <div class="container mt-4">
         <h1>Listado de Reservas</h1>
-        <a class="btn btn-primary mb-2" href="{% url 'reserva_add' %}">Añadir Reserva</a>
+        <div class="d-flex justify-content-between mb-2">
+            <a class="btn btn-primary" href="{% url 'reserva_add' %}">Añadir Reserva</a>
+            <a class="btn btn-secondary" href="{% url 'crud' %}">Ver Clientes</a>
+        </div>
         
         <!-- Mensaje de éxito o error -->
         <div class="alert alert-success" role="alert" id="idMensaje">

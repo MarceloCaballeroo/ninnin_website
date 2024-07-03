@@ -71,6 +71,7 @@ TEMPLATES = [
 #cambiar la redireccion a la vista de admin
 
 LOGIN_REDIRECT_URL = "index"
+LOGIN_REDIRECT_URL = 'custom_redirect'  # Redirigir a la vista de redirección personalizada
 
 LOGOUT_REDIRECT_URL = "index"
 

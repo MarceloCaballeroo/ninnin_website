@@ -21,6 +21,9 @@ urlpatterns = [
     path('reservaAdd', views.reserva_add, name='reserva_add'),
     path('reservaUpdate/<int:pk>', views.reserva_update, name='reserva_update'),
     path('reservaDel/<int:pk>', views.reserva_del, name='reserva_del'),
+
+     path('redirect/', views.custom_redirect, name='custom_redirect'),
+
 ]
 
 
