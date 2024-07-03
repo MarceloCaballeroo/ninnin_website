@@ -170,7 +170,10 @@ def reserva_list(request):
     reservas = Reserva.objects.all()
     return render(request, 'reservas/reserva_list.html', {'reservas': reservas})
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> eca23bebd6f5dddaa6e17374f10325156599e06c
 def reserva_add(request):
     if request.method == 'POST':
         nombre = request.POST.get('nombre')
@@ -210,3 +213,11 @@ def reserva_del(request, pk):
     reserva = get_object_or_404(Reserva, id_reserva=pk)
     reserva.delete()
     return redirect('reserva_list')
+
+
+@login_required
+def custom_redirect(request):
+    if request.user.is_staff:
+        return redirect('crud')  # Redirigir a la página CRUD
+    else:
+        return redirect('index')
