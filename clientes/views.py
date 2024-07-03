@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from .forms import UserForm
 from django.contrib.auth.forms import UserCreationForm
-from .models import Cliente
+from .models import Cliente, Reserva
 from django.contrib.auth.decorators import login_required
 from .forms import ReservaForm
 
@@ -163,3 +163,56 @@ def clientesAdd(request):
 
         context = {'mensaje': "Cliente añadido", 'users': User.objects.all()}
         return render(request, 'clientes/clientes_add.html', context)
+    
+
+
+
+
+def reserva_list(request):
+    reservas = Reserva.objects.all()
+    return render(request, 'reservas/reserva_list.html', {'reservas': reservas})
+
+
+from django.shortcuts import render, redirect
+from .models import Reserva
+from django.utils import timezone
+
+def reserva_add(request):
+    if request.method == 'POST':
+        nombre = request.POST.get('nombre')
+        email = request.POST.get('email')
+        telefono = request.POST.get('telefono')
+        fecha_reserva = request.POST.get('fecha_reserva')
+        hora = request.POST.get('hora')
+        cliente_id = request.POST.get('cliente')  # Obtener el ID del cliente desde el formulario
+
+        cliente = Cliente.objects.get(pk=cliente_id)  # Obtener el objeto Cliente usando su ID
+        reserva = Reserva(nombre=nombre, email=email, telefono=telefono, fecha_reserva=fecha_reserva, hora=hora, cli_reserva=cliente)
+        reserva.save()
+
+        return redirect('reserva_list')
+
+    # Obtener todos los clientes para mostrar en el formulario
+    clientes = Cliente.objects.all()
+    return render(request, 'reservas/reserva_add.html', {'clientes': clientes})
+
+def reserva_update(request, pk):
+    reserva = get_object_or_404(Reserva, id_reserva=pk)
+
+    if request.method == 'POST':
+        reserva.nombre = request.POST.get('nombre')
+        reserva.email = request.POST.get('email')
+        reserva.telefono = request.POST.get('telefono')
+        reserva.fecha_reserva = request.POST.get('fecha_reserva')
+        reserva.hora = request.POST.get('hora')
+        reserva.save()
+
+        return redirect('reserva_list')
+
+    return render(request, 'reservas/reserva_update.html', {'reserva': reserva})
+
+
+def reserva_del(request, pk):
+    reserva = get_object_or_404(Reserva, id_reserva=pk)
+    reserva.delete()
+    return redirect('reserva_list')

@@ -8,6 +8,7 @@ urlpatterns = [
     path('galeria', views.galeria, name='galeria'),
     path('crud', views.crud_clientes, name='crud'),
 
+
     path('menu', views.menu, name='menu'), 
     path('reserva/', views.reserva_Form, name='reserva'),
 
@@ -16,5 +17,11 @@ urlpatterns = [
     path('clientesUpdate', views.clientesUpdate, name='clientesUpdate'),
     path('clientesAdd', views.clientesAdd, name='clientesAdd'),
 
+    path('reservaList', views.reserva_list, name='reserva_list'),
+    path('reservaAdd', views.reserva_add, name='reserva_add'),
+    path('reservaUpdate/<int:pk>', views.reserva_update, name='reserva_update'),
+    path('reservaDel/<int:pk>', views.reserva_del, name='reserva_del'),
 ]
 
+
+    
