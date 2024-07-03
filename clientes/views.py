@@ -166,16 +166,10 @@ def clientesAdd(request):
     
 
 
-
-
 def reserva_list(request):
     reservas = Reserva.objects.all()
     return render(request, 'reservas/reserva_list.html', {'reservas': reservas})
 
-
-from django.shortcuts import render, redirect
-from .models import Reserva
-from django.utils import timezone
 
 def reserva_add(request):
     if request.method == 'POST':

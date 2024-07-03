@@ -8,7 +8,6 @@ urlpatterns = [
     path('galeria', views.galeria, name='galeria'),
     path('crud', views.crud_clientes, name='crud'),
 
-
     path('menu', views.menu, name='menu'), 
     path('reserva/', views.reserva_Form, name='reserva'),
 
