@@ -9,14 +9,21 @@ class UserForm(forms.ModelForm):
             'password': forms.PasswordInput(),
         }
 
+
 class ReservaForm(forms.ModelForm):
     class Meta:
         model = Reserva
         fields = ['nombre', 'email', 'telefono', 'fecha_reserva', 'hora']
         widgets = {
-            'nombre': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'nombre': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nombre'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Correo Electrónico'}),
             'telefono': forms.TextInput(attrs={'class': 'form-control', 'placeholder': '+569XXXXXXXX'}),
             'fecha_reserva': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'hora': forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
         }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop('user', None)
+        super(ReservaForm, self).__init__(*args, **kwargs)
+        if user:
+            self.fields['nombre'].initial = user.cliente.nombre  
