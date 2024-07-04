@@ -184,3 +184,43 @@ p {
 .form-container {
   margin-bottom: 0; /* Asegúrate de que no haya márgenes no deseados */
 }
+
+/* Clase para el fondo */
+.background-image {
+  position: relative;
+  z-index: 1;
+}
+
+.background-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 1;
+}
+
+
+/* Estilo para el carrusel */
+#carouselExampleIndicators {
+  position: relative; /* Asegura que el carrusel tenga una posición relativa */
+  z-index: 0; /* Ajusta el z-index para que esté detrás del menú desplegable */
+}
+
+.navbar {
+  position: relative; /* Asegura que el z-index funcione */
+  z-index: 1000; /* Ajusta el z-index según sea necesario */
+}
+
+.dropdown-menu {
+  z-index: 1001; /* Asegura que el dropdown tenga un z-index superior al navbar */
+}
+
+.alert {
+  position: relative; /* Asegura que el z-index funcione */
+  z-index: 0; /* Ajusta el z-index para que esté detrás del dropdown de la navbar */
+}
+
+
+
+

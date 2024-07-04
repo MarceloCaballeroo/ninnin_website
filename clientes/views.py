@@ -8,19 +8,20 @@ from django.contrib.auth.decorators import login_required
 from .forms import ReservaForm
 
 
-def login(request):
+def login_view(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
+
         if user is not None:
             login(request, user)
-            return redirect('home')  # redirige a la página de inicio después de iniciar sesión
+            return redirect('home')
         else:
-            # si la autenticación falla, puedes mostrar un mensaje de error
-            return render(request, 'Clientes/login.html', {'error': 'Nombre de usuario o contraseña incorrectos'})
-    else:
-        return render(request, 'Clientes/login.html')
+            return redirect('login')  
+
+    return render(request, 'Clientes/login.html')
+
 
 
 def registro(request):
@@ -170,28 +171,22 @@ def reserva_list(request):
     reservas = Reserva.objects.all()
     return render(request, 'reservas/reserva_list.html', {'reservas': reservas})
 
-<<<<<<< HEAD
 
-=======
->>>>>>> eca23bebd6f5dddaa6e17374f10325156599e06c
 def reserva_add(request):
     if request.method == 'POST':
-        nombre = request.POST.get('nombre')
-        email = request.POST.get('email')
-        telefono = request.POST.get('telefono')
-        fecha_reserva = request.POST.get('fecha_reserva')
-        hora = request.POST.get('hora')
-        cliente_id = request.POST.get('cliente')  # Obtener el ID del cliente desde el formulario
+        form = ReservaForm(request.POST)
+        if form.is_valid():
+            cliente_id = request.POST.get('cliente')
+            cliente = Cliente.objects.get(pk=cliente_id)
+            reserva = form.save(commit=False)
+            reserva.cli_reserva = cliente
+            reserva.save()
+            return redirect('reserva_list')
+    else:
+        form = ReservaForm()
 
-        cliente = Cliente.objects.get(pk=cliente_id)  # Obtener el objeto Cliente usando su ID
-        reserva = Reserva(nombre=nombre, email=email, telefono=telefono, fecha_reserva=fecha_reserva, hora=hora, cli_reserva=cliente)
-        reserva.save()
-
-        return redirect('reserva_list')
-
-    # Obtener todos los clientes para mostrar en el formulario
     clientes = Cliente.objects.all()
-    return render(request, 'reservas/reserva_add.html', {'clientes': clientes})
+    return render(request, 'reservas/reserva_add.html', {'form': form, 'clientes': clientes})
 
 def reserva_update(request, pk):
     reserva = get_object_or_404(Reserva, id_reserva=pk)

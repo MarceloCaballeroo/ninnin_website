@@ -1,15 +1,5 @@
-{% load static %}
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Reservas</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-</head>
-<body>
+{% extends "clientes/base.html" %}
+{%block content %}
     <div class="container mt-4">
         <h1>Listado de Reservas</h1>
         <div class="d-flex justify-content-between mb-2">
@@ -18,7 +8,7 @@
         </div>
         
         <!-- Mensaje de éxito o error -->
-        <div class="alert alert-success" role="alert" id="idMensaje">
+        <div  role="alert" id="idMensaje">
             {% if mensaje %}
                 {{ mensaje }}
             {% endif %}
@@ -64,7 +54,4 @@
         </table>
     </div>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js" integrity="sha384-TX6zpDwBnYq3T2vXZuOW3WzrPRmhg7F6TgqVa9R/08F0KKDhXJwiYaFQtSlnAm+r" crossorigin="anonymous"></script>
-</body>
-</html>
+{% endblock %}

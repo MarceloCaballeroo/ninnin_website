@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ninnin</title>
     {% load static %}
     <!-- Estilos CSS de Bootstrap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
-        integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <!-- Estilo personalizado -->
     <link rel="stylesheet" href="{% static 'Layout/style.css' %}">
     <link rel="icon" type="image/svg+xml" href="{% static 'Components/icons/icono.svg' %}">
+    <style>
+        .carousel {
+            position: relative;
+            z-index: 0; /* Ajusta según sea necesario */
+        }
+        .navbar {
+            position: relative;
+            z-index: 1000; /* Asegura que el navbar esté por encima del carrusel */
+        }
+    </style>
 </head>
-
 <body>
     <!-- Navbar -->
     {% include 'mysite/Components/navbar.html' %}
@@ -39,7 +46,7 @@
     </div>
 
     <!-- Carrousel -->
-    <div class="row">
+    <div class="row position-relative">
         <div class="col-12">
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">

@@ -1,37 +1,43 @@
 {% extends "clientes/base.html" %}
-{%block content %}
-    <div class="container">
-        {% if mensaje %}
-        <div class="alert alert-primary" role="alert" id="idMensaje">
-        
-        {{mensaje}}
-        
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Regístrate</h2>
+                    {% if mensaje %}
+                    <div class="alert alert-primary" role="alert" id="idMensaje">
+                        {{ mensaje }}
+                    </div>
+                    {% endif %}
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="id_nombre">Username:</label>
+                            <input type="text" class="form-control" id="id_nombre" name="nombre" placeholder="Enter username">
+                        </div>
+                        <div class="form-group">
+                            <label for="id_email">Email address:</label>
+                            <input type="email" class="form-control" id="id_email" name="email" placeholder="Enter email">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="id_password">Password:</label>
+                            <input type="password" class="form-control" id="id_password" name="password" placeholder="Password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        {%endif%}
-        <form action="" method="post">
-        {% csrf_token%}  
-            <div class="form-group">
-            <label for="nombre">Username</label>
-            <input type="text" class="form-control" id="nombre" name="nombre" aria-describedby="emailHelp" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter email">
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-            <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary">Guardar</button>
-        </form>
     </div>
+</div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    
-    <script>
+
+<script>
     $(document).ready(function(){
         $("#idMensaje").delay(2000).fadeOut("slow");
-    })
-    </script>
+    });
+</script>
 {% endblock %}

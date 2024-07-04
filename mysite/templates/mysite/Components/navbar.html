@@ -1,6 +1,6 @@
-<!-- alumnos/templates/alumnos/Components/navbar.html -->
+<!-- components/navbar.html -->
 {% load static %}
-<nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+<nav id="navbar" class="navbar navbar-expand-lg navbar-dark custom-navbar">
     <div class="container">
         <a class="navbar-brand" href="{% url 'index' %}">
             <img src="{% static 'Components/icons/icono.svg' %}" alt="Logo" class="navbar-logo">
@@ -22,35 +22,33 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'promociones' %}">Promoción</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {% if user.is_authenticated %}
+                {% if user.is_authenticated %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {{ user.username }}
-                        {% else %}
-                            Iniciar sesión
-                        {% endif %}
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
-                        {% if user.is_authenticated %}
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <form id="logoutForm" action="{% url 'logout' %}" method="post">
                                 {% csrf_token %}
                                 <button type="submit" class="dropdown-item">Cerrar sesión</button>
                             </form>
-                        {% else %}
-                            <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-                        {% endif %}
-                    </div>
-                    
+                        </div>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a href="{% url 'login' %}" class="nav-link">Iniciar sesión</a>
+                    </li>
+                {% endif %}
+                <li {% if clase == 'galeria' %} class="current" {% endif %}>
+                    <a href="{% url 'galeria' %}" class="nav-link">Galería</a>
                 </li>
-                <li  {%if clase == 'galeria'%}
-                                class="current" {%endif%}><a  href="{% url 'galeria'%}" class="nav-link">Galeria</a></li>
-								{% if user.is_authenticated %}
-
-								{% else %}
-								<li {%if clase == 'registro'%}
-                                class="current" {%endif%}><a class="nav-link" href="{% url 'registro'%}">Registro</a></li>
-								{% endif %}
+                {% if not user.is_authenticated %}
+                    <li {% if clase == 'registro' %} class="current" {% endif %}>
+                        <a class="nav-link" href="{% url 'registro' %}">Registro</a>
+                    </li>
+                {% endif %}
             </ul>
         </div>
     </div>
 </nav>
+

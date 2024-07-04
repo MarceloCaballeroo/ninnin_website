@@ -1,6 +1,7 @@
 from django import forms
 from .models import Cliente, Reserva
 
+
 class UserForm(forms.ModelForm):
     class Meta:
         model = Cliente
@@ -8,7 +9,6 @@ class UserForm(forms.ModelForm):
         widgets = {
             'password': forms.PasswordInput(),
         }
-
 
 class ReservaForm(forms.ModelForm):
     class Meta:
@@ -26,4 +26,5 @@ class ReservaForm(forms.ModelForm):
         user = kwargs.pop('user', None)
         super(ReservaForm, self).__init__(*args, **kwargs)
         if user:
-            self.fields['nombre'].initial = user.cliente.nombre  
+            self.fields['nombre'].initial = user.cliente.nombre
+
