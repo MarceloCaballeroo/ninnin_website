@@ -1,3 +1,5 @@
+console.log("Script cargado");
+
 $(document).ready(function () {
   
   // Navbar: Cargar la navbar
@@ -22,60 +24,7 @@ $(document).ready(function () {
   loadNavbar();
   loadFooter();
 
-  // Formulario de Reservación: Validar y enviar el formulario
-  $('#reservationForm').submit(function(event) {
-    event.preventDefault();
-    var name = $('#name').val();
-    var email = $('#email').val();
-    var phone = $('#phone').val();
-    var date = $('#date').val();
-    var time = $('#time').val();
 
-    // Validar el nombre para que contenga solo letras
-  var nameRegex = /^[a-zA-Z\s]+$/;
-  if (!nameRegex.test(name)) {
-      alert('Por favor, introduce un nombre válido (solo letras).');
-      return false;
-  }
-
-  // Validar el formato del teléfono (+569XXXXXXXX)
-  var phoneRegex = /^\+569\d{8}$/;
-  if (!phoneRegex.test(phone)) {
-      alert('Por favor, introduce un número de teléfono válido (+569XXXXXXXX).');
-      return false;
-  }
-
-  // Validar que la fecha no sea anterior a la actual
-  var today = new Date();
-  var selectedDate = new Date(date);
-  if (selectedDate < today) {
-      alert('Por favor, selecciona una fecha futura.');
-      return false;
-  }
-    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        alert('Por favor, introduce un correo electrónico válido.');
-        return false;
-    }
-
-     // Validar que la hora esté entre 12 y 19 horas (de mediodía a las 7 PM)
-    var selectedTime = new Date('1970-01-01T' + time + ':00');
-    var startTime = new Date('1970-01-01T12:00:00');
-    var endTime = new Date('1970-01-01T19:00:00');
-    if (selectedTime < startTime || selectedTime > endTime) {
-        alert('Por favor, selecciona una hora entre las 12:00 PM y las 7:00 PM.');
-        return false;
-    }
-
-    
-    if (name.trim() === '' || email.trim() === '' || phone.trim() === '' || date.trim() === '' || time.trim() === '') {
-        alert('Por favor, completa todos los campos.');
-        return false;
-    }
-
-
-    alert('Formulario enviado con éxito.');
-  });
 
   // Mostrar modal al cargar la página
   $('#myModal').modal('show');
@@ -197,3 +146,59 @@ $(document).ready(function () {
   });
 });
 
+// Formulario de Reservación: Validar y enviar el formulario
+$('#reservationForm').submit(function(event) {
+    event.preventDefault();
+    var name = $('#{{ form.nombre.id_for_label }}').val();
+    var email = $('#{{ form.email.id_for_label }}').val();
+    var phone = $('#{{ form.telefono.id_for_label }}').val();
+    var date = $('#{{ form.fecha_reserva.id_for_label }}').val();
+    var time = $('#{{ form.hora.id_for_label }}').val();
+
+    // Validar el nombre para que contenga solo letras
+    var nameRegex = /^[a-zA-Z\s]+$/;
+    if (!nameRegex.test(name)) {
+        alert('Por favor, introduce un nombre válido (solo letras).');
+        return false;
+    }
+
+    // Validar el formato del teléfono (+569XXXXXXXX)
+    var phoneRegex = /^\+569\d{8}$/;
+    if (!phoneRegex.test(phone)) {
+        alert('Por favor, introduce un número de teléfono válido (+569XXXXXXXX).');
+        return false;
+    }
+
+    // Validar que la fecha no sea anterior a la actual
+    var today = new Date();
+    var selectedDate = new Date(date);
+    if (selectedDate < today) {
+        alert('Por favor, selecciona una fecha futura.');
+        return false;
+    }
+
+    // Validar el formato del correo electrónico
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+        alert('Por favor, introduce un correo electrónico válido.');
+        return false;
+    }
+
+    // Validar que la hora esté entre 12 y 19 horas (de mediodía a las 7 PM)
+    var selectedTime = new Date('1970-01-01T' + time + ':00');
+    var startTime = new Date('1970-01-01T12:00:00');
+    var endTime = new Date('1970-01-01T19:00:00');
+    if (selectedTime < startTime || selectedTime > endTime) {
+        alert('Por favor, selecciona una hora entre las 12:00 PM y las 7:00 PM.');
+        return false;
+    }
+
+    // Validar que todos los campos estén completos
+    if (name.trim() === '' || email.trim() === '' || phone.trim() === '' || date.trim() === '' || time.trim() === '') {
+        alert('Por favor, completa todos los campos.');
+        return false;
+    }
+
+    alert('Formulario enviado con éxito.');
+    this.submit();
+});

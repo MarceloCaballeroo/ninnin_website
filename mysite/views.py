@@ -14,8 +14,7 @@ def comidas(request):
 def promociones(request):
     return render(request, 'mysite/Pages/Promociones.html')
 
-def reservacion(request):
-    return render(request, 'mysite/Pages/Reservacion.html')
+
 
 def sucursal(request):
     return render(request, 'mysite/Pages/Sucursal.html')

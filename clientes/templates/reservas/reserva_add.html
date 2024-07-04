@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <div class="form-container">
                         <h2 class="card-title">Añadir Reserva</h2>
-                        <form action="{% url 'reserva_add' %}" method="POST">
+                        <form id="reservationForm" action="{% url 'reserva_add' %}" method="POST">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="{{ form.nombre.id_for_label }}">Nombre:</label>
@@ -20,7 +20,6 @@
                             <div class="form-group">
                                 <label for="{{ form.telefono.id_for_label }}">Teléfono:</label>
                                 {{ form.telefono }}
-
                             </div>
                             <div class="form-group">
                                 <label for="{{ form.fecha_reserva.id_for_label }}">Fecha:</label>
@@ -50,3 +49,4 @@
     </div>
 </div>
 {% endblock %}
+
