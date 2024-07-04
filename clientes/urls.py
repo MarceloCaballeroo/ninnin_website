@@ -20,7 +20,25 @@ urlpatterns = [
     path('reservaUpdate/<int:pk>', views.reserva_update, name='reserva_update'),
     path('reservaDel/<int:pk>', views.reserva_del, name='reserva_del'),
 
-     path('redirect/', views.custom_redirect, name='custom_redirect'),
+    path('redirect/', views.custom_redirect, name='custom_redirect'),
+    path('carrito/', views.carrito_detail, name='carrito_detail'),
+    path('carrito/add/<int:producto_id>/', views.add_to_cart, name='add_to_cart'),
+    path('carrito/remove/<int:item_id>/', views.remove_from_cart, name='remove_from_cart'),
+    
+    path('carrito/confirmar/', views.confirmar_compra, name='confirmar_compra'),
+
+
+    path('crud_producto/', views.producto_list, name='crud_producto'),
+    path('productos/add/', views.producto_add, name='producto_add'),
+    path('productos/edit/<int:pk>/', views.producto_edit, name='producto_edit'),   
+    path('productos/delete/<int:pk>/', views.producto_delete, name='producto_delete'),
+    path('productos/comun/', views.producto_list_usuario_comun, name='producto_list_usuario_comun'),
+    
+
+    
+
+    
+
 
 ]
 

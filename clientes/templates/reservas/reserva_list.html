@@ -1,57 +1,60 @@
 {% extends "clientes/base.html" %}
-{%block content %}
-    <div class="container mt-4">
-        <h1>Listado de Reservas</h1>
-        <div class="d-flex justify-content-between mb-2">
-            <a class="btn btn-primary" href="{% url 'reserva_add' %}">Añadir Reserva</a>
-            <a class="btn btn-secondary" href="{% url 'crud' %}">Ver Clientes</a>
-        </div>
-        
-        <!-- Mensaje de éxito o error -->
-        <div  role="alert" id="idMensaje">
-            {% if mensaje %}
-                {{ mensaje }}
-            {% endif %}
-        </div>
 
-        <table class="table table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Teléfono</th>
-                    <th scope="col">Fecha de Reserva</th>
-                    <th scope="col">Hora</th>
-                    <th scope="col">Cliente</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for reserva in reservas %}
-                <tr>
-                    <td>{{ reserva.id_reserva }}</td>
-                    <td>{{ reserva.nombre }}</td>
-                    <td>{{ reserva.email }}</td>
-                    <td>{{ reserva.telefono }}</td>
-                    <td>{{ reserva.fecha_reserva }}</td>
-                    <td>{{ reserva.hora }}</td>
-                    <td>{{ reserva.cli_reserva.nombre }} {{ reserva.cli_reserva.apellido }}</td>
-                    <td>
-                        <a href="{% url 'reserva_update' reserva.id_reserva %}" class="btn btn-sm btn-warning">Modificar</a>
-                        <form action="{% url 'reserva_del' reserva.id_reserva %}" method="post" style="display: inline;">
-                            {% csrf_token %}
-                            <input type="submit" value="Eliminar" class="btn btn-sm btn-danger">
-                        </form>
-                    </td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="8">No hay reservas disponibles</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+{% block content %}
+<div class="container mt-4">
+    <h1>Listado de Reservas</h1>
+    <div class="d-flex justify-content-between mb-2">
+        <a class="btn btn-primary" href="{% url 'reserva_add' %}">Añadir Reserva</a>
+        <a class="btn btn-secondary" href="{% url 'crud' %}">Ver Clientes</a>
+        <a class="btn btn-info" href="{% url 'crud_producto' %}">Ver Productos</a>
     </div>
+
+    <div id="idMensaje">
+        {% if mensaje %}
+        <div class="alert alert-success">
+            {{ mensaje }}
+        </div>
+        {% endif %}
+    </div>
+
+    <table class="table table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Fecha de Reserva</th>
+                <th scope="col">Hora</th>
+                <th scope="col">Cliente</th>
+                <th scope="col">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
+            <tr>
+                <td>{{ reserva.id_reserva }}</td>
+                <td>{{ reserva.nombre }}</td>
+                <td>{{ reserva.email }}</td>
+                <td>{{ reserva.telefono }}</td>
+                <td>{{ reserva.fecha_reserva }}</td>
+                <td>{{ reserva.hora }}</td>
+                <td>{{ reserva.cli_reserva.nombre }} {{ reserva.cli_reserva.apellido }}</td>
+                <td>
+                    <a href="{% url 'reserva_update' reserva.id_reserva %}" class="btn btn-sm btn-warning">Modificar</a>
+                    <form action="{% url 'reserva_del' reserva.id_reserva %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="submit" value="Eliminar" class="btn btn-sm btn-danger">
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8">No hay reservas disponibles</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}

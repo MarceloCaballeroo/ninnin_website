@@ -1,5 +1,5 @@
 {% extends "clientes/base.html" %}
-{%block content %}
+{% block content %}
     <div class="container mt-5">
         <h1>Editar datos Cliente</h1>
         <br>
@@ -9,6 +9,9 @@
             </button>
             <button type="button" class="btn btn-secondary">
                 <a href="{% url 'reserva_list' %}" class="text-white">Ver Reservas</a>
+            </button>
+            <button type="button" class="btn btn-info">
+                <a href="{% url 'crud_producto' %}" class="text-white">Ver Productos</a>
             </button>
         </div>
         <div id="idMensaje">
