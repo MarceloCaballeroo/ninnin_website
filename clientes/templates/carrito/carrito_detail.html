@@ -29,12 +29,11 @@
         </div>
 
         <div class="mt-4">
-            <a href="{% url 'producto_list_usuario_comun' %}" class="btn btn-primary mr-2">Postres</a>
+            <a href="{% url 'producto_list_usuario_comun' %}" class="btn btn-primary mr-2">Volver</a>
+            <a href="{% url 'confirmar_compra' %}" class ="btn btn-primary mr-2"> Confirmar </a> 
             <a href="{% url 'index' %}" class="btn btn-secondary">Volver al Inicio</a>
-            <form action="{% url 'confirmar_compra' carrito.id %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-primary">Confirmar Compra</button>
             </form>
         </div>
+        
     </div>
     {% endblock %}

@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Cliente, Reserva, Carrito, CarritoItem, Producto
 from django.contrib.auth.decorators import login_required
 from .forms import ReservaForm, ProductoForm, AddToCartForm
-
+from django.http import HttpResponse
 
 def login_view(request):
     if request.method == 'POST':
@@ -221,7 +221,7 @@ def custom_redirect(request):
 @login_required
 def producto_list(request):
     productos = Producto.objects.all()
-    return render(request, 'productos/producto_list.html', {'productos': productos})
+    return render(request, 'productos/productos_usuario_comun.html', {'productos': productos})
 
 @login_required
 def add_to_cart(request, producto_id):
@@ -245,31 +245,39 @@ def carrito_detail(request):
 @login_required
 def remove_from_cart(request, item_id):
     item = get_object_or_404(CarritoItem, id=item_id)
-    
     if request.method == 'POST':
         item.delete()
         return redirect('carrito_detail')
-    
-    # Si la solicitud es GET, podrías renderizar una plantilla de confirmación si es necesario
-    
     return redirect('carrito_detail')
 
+@login_required
+@login_required
+def confirmar_compra(request):
+    # Obtener el carrito del usuario actual
+    try:
+        carrito = Carrito.objects.get(user=request.user)
+    except Carrito.DoesNotExist:
+        return HttpResponse("No tienes ningún carrito.", status=404)
 
-def confirmar_compra(request, carrito_id):
-    carrito = get_object_or_404(Carrito, id=carrito_id)
-    items = carrito.items.filter(confirmado=False)
+    # Marcar todos los items del carrito como confirmados
+    carrito_items = carrito.items.filter(confirmado=False)
+    if not carrito_items.exists():
+        return HttpResponse("No hay productos en el carrito para confirmar.", status=404)
 
-    for item in items:
+    # Calcular el total antes de confirmar la compra
+    total_carrito = carrito.total_price()
+
+    for item in carrito_items:
         item.confirmado = True
         item.save()
 
-    # Aquí podrías realizar otras acciones como generar una orden, enviar un correo de confirmación, etc.
+    # Guardar el total antes de eliminar los productos
+    total_carrito_antes = total_carrito
 
-    return redirect('index')  # Redirecciona a la página de confirmación o a donde sea necesario
+    # Eliminar todos los items confirmados del carrito
+    carrito.items.filter(confirmado=True).delete()
 
-
-
-
+    return render(request, 'clientes/compra_confirmada.html', {'total_carrito_antes': total_carrito_antes})
 ###################################################################################################################################################################################
 #####################################################################              PRODUCTOS            ###########################################################################
 
