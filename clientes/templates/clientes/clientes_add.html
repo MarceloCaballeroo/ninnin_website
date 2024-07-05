@@ -1,50 +1,62 @@
 {% extends "clientes/base.html" %}
-{%block content %}
-    <div class="container mt-4">
-        <h2 class="text-center">Formulario CRUD de Cliente</h2>
-        <br>
-        <form action="{% url 'clientesAdd' %}" method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" class="form-control" id="nombre" name="nombre" required>
-            </div>
-            <div class="form-group">
-                <label for="apellido">Apellido:</label>
-                <input type="text" class="form-control" id="apellido" name="apellido" required>
-            </div>
-            <div class="form-group">
-                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="date" class="form-control" id="fecha_nacimiento" name="fecha_nacimiento" required>
-            </div>
-            <div class="form-group">
-                <label for="correo">Correo:</label>
-                <input type="email" class="form-control" id="correo" name="correo" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <div class="form-group">
-                <label for="user">User:</label>
-                <select class="form-control" id="user" name="user" required>
-                    {% for user in users %}
-                        <option value="{{ user.id }}">{{ user.username }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Agregar</button>
-        </form>
-        <br>
-        <a href="{% url 'crud' %}" class="btn btn-secondary">Volver</a>
-        <br>
-        <div id="idMensajes" class="mt-4">
-            {% if mensaje %}
-                <div class="alert alert-info" role="alert">
-                    {{ mensaje }}
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-container">
+                        <h2 class="card-title">Agregar Cliente</h2>
+                        <form action="{% url 'clientesAdd' %}" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="{{ form.user.id_for_label }}">Usuario:</label>
+                                {{ form.user }}
+                                {{ form.user.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.nombre.id_for_label }}">Nombre:</label>
+                                {{ form.nombre }}
+                                {{ form.nombre.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.apellido.id_for_label }}">Apellido:</label>
+                                {{ form.apellido }}
+                                {{ form.apellido.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.fecha_nacimiento.id_for_label }}">Fecha de Nacimiento:</label>
+                                {{ form.fecha_nacimiento }}
+                                {{ form.fecha_nacimiento.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.email.id_for_label }}">Correo:</label>
+                                {{ form.email }}
+                                {{ form.email.errors }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.password.id_for_label }}">Password:</label>
+                                {{ form.password }}
+                                {{ form.password.errors }}
+                            </div>
+                            <button type="submit" class="btn btn-primary">Agregar</button>
+                            <a href="{% url 'reserva_add' %}" class="btn btn-secondary ml-2">Reservar</a>
+                            {% if user.is_staff %}
+                                <a  href="{% url 'crud' %}" class="btn btn-secondary ml-2" >Lista</a>
+                            {% endif %}
+                        </form>
+                        <br>
+                        <div id="idMensajes" class="mt-4">
+                            {% if mensaje %}
+                                <div class="alert alert-info" role="alert">
+                                    {{ mensaje }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
-            {% endif %}
+            </div>
         </div>
     </div>
-
-{%  endblock %}
+</div>
+{% endblock %}

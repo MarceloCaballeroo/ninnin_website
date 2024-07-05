@@ -1,0 +1,21 @@
+{% extends "clientes/base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <h2>Mis Reservas</h2>
+    {% if reservas %}
+        <ul class="list-group">
+            {% for reserva in reservas %}
+                <li class="list-group-item">
+                    <strong>Fecha:</strong> {{ reserva.fecha_reserva }} <br>
+                    <strong>Hora:</strong> {{ reserva.hora }} <br>
+                    <strong>Nombre:</strong> {{ reserva.nombre }} <br>
+                    <strong>Email:</strong> {{ reserva.email }} <br>
+                    <strong>Teléfono:</strong> {{ reserva.telefono }} <br>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tienes reservas.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -8,7 +8,6 @@ urlpatterns = [
     path('galeria', views.galeria, name='galeria'),
     path('crud', views.crud_clientes, name='crud'),
 
-    path('menu', views.menu, name='menu'), 
 
     path('clientes_del/<str:pk>', views.clientes_del, name='clientes_del'),
     path('clientes_findEdit/<str:pk>', views.clientes_findEdit, name='clientes_findEdit'),
@@ -19,6 +18,7 @@ urlpatterns = [
     path('reservaAdd', views.reserva_add, name='reserva_add'),
     path('reservaUpdate/<int:pk>', views.reserva_update, name='reserva_update'),
     path('reservaDel/<int:pk>', views.reserva_del, name='reserva_del'),
+    path('mis_reservas/', views.mis_reservas, name='mis_reservas'),
 
     path('redirect/', views.custom_redirect, name='custom_redirect'),
     path('carrito/', views.carrito_detail, name='carrito_detail'),

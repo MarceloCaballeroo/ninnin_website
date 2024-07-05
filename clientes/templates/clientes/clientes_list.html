@@ -60,11 +60,6 @@
             {% endif %}
         </table>
 
-        <div class="d-flex justify-content-end mt-4">
-            <form action="{% url 'logout' %}" method="POST">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Cerrar Sesión</button>
-            </form>
-        </div>
+
     </div>
 {% endblock %}
