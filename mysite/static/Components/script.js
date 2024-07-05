@@ -1,5 +1,3 @@
-console.log("Script cargado");
-
 $(document).ready(function () {
   
   // Navbar: Cargar la navbar

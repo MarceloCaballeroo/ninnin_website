@@ -6,7 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Cliente, Reserva
 from django.contrib.auth.decorators import login_required
 from .forms import ReservaForm
-
+from django.contrib.admin.views.decorators import staff_member_required
 
 def login_view(request):
     if request.method == 'POST':
@@ -41,18 +41,13 @@ def galeria(request):
     context={"clase": "galeria"}
     return render(request, 'clientes/galeria.html', context)
 
+@staff_member_required
 def crud_clientes(request):
     clientes = Cliente.objects.all()
     context = {'clientes' : clientes}
     return render(request, 'clientes/clientes_list.html',context)
 
-#preparacion vista final
-@login_required
-def menu(request):
-    request.session["usuario"] = "Jcampos"
-    usuario = request.session["usuario"]
-    context = {'usuario': usuario}
-    return render(request, 'clientes/clientes_list.html',context)
+
 
 def reserva_Form(request):
     print("estoy en el controlador reserva...")
@@ -136,42 +131,30 @@ def clientesUpdate(request):
         context = {'clientes': clientes}
         return render(request, 'clientes/clientes_list.html', context)
 
+
 def clientesAdd(request):
-    if request.method != "POST":
-        users = User.objects.all()  # Obtener todos los usuarios
-        context = {'users': users}
-        return render(request, 'clientes/clientes_add.html', context)
-    else:
-        nombre = request.POST.get("nombre")
-        apellido = request.POST.get("apellido")
-        fecha_nacimiento = request.POST.get("fecha_nacimiento")
-        email = request.POST.get("correo")
-        password = request.POST.get("password")
-        user_id = request.POST.get("user")
-
-        if not user_id:
-            context = {'mensaje': "Seleccione un usuario", 'users': User.objects.all()}
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            context = {'mensaje': "Cliente añadido", 'form': UserForm()}
             return render(request, 'clientes/clientes_add.html', context)
-
-        cliente = Cliente.objects.create(
-            nombre=nombre,
-            apellido=apellido,
-            fecha_nacimiento=fecha_nacimiento,
-            email=email,
-            password=password,
-            user_id=user_id
-        )
-
-        context = {'mensaje': "Cliente añadido", 'users': User.objects.all()}
+        else:
+            context = {'form': form, 'mensaje': "Error al añadir cliente"}
+            return render(request, 'clientes/clientes_add.html', context)
+    else:
+        form = UserForm()
+        context = {'form': form}
         return render(request, 'clientes/clientes_add.html', context)
     
 
-
+@staff_member_required
 def reserva_list(request):
     reservas = Reserva.objects.all()
     return render(request, 'reservas/reserva_list.html', {'reservas': reservas})
 
 
+@login_required
 def reserva_add(request):
     if request.method == 'POST':
         form = ReservaForm(request.POST)
@@ -181,12 +164,22 @@ def reserva_add(request):
             reserva = form.save(commit=False)
             reserva.cli_reserva = cliente
             reserva.save()
-            return redirect('reserva_list')
+            return redirect('mis_reservas')
     else:
         form = ReservaForm()
 
     clientes = Cliente.objects.all()
     return render(request, 'reservas/reserva_add.html', {'form': form, 'clientes': clientes})
+
+@login_required
+def mis_reservas(request):
+    try:
+        cliente = request.user.cliente  # Asumiendo que tienes un perfil de cliente relacionado con el usuario
+        reservas = Reserva.objects.filter(cli_reserva=cliente)
+    except Cliente.DoesNotExist:
+        reservas = None
+    
+    return render(request, 'reservas/mis_reservas.html', {'reservas': reservas})
 
 def reserva_update(request, pk):
     reserva = get_object_or_404(Reserva, id_reserva=pk)
