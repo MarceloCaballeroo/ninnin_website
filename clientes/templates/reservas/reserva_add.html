@@ -45,8 +45,7 @@
                                     {% if user.is_staff %}
                                         <a  href="{% url 'crud' %}" class="btn btn-secondary ml-2" >Lista</a>
                                     {% endif %}
-                                </div>
-                               
+                                </div>                          
                             </form>
                         </div>
                     </div>
@@ -54,8 +53,6 @@
             </div>
         </div>
     </div>
-    <!-- Footer -->
-    {% include 'mysite/Components/footer.html' %}
 
     <!-- jQuery y Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -121,4 +118,4 @@
             this.submit();
         });
     </script>
-    {% endblock %}
+    {% endblock %}      
