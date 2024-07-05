@@ -56,7 +56,7 @@ def reserva_Form(request):
 
     if request.method == "POST":
         print("controlador es un post...")
-        form = ReservaForm(request.POST, user=request.user)
+        form = ReservaForm(request.POST, user=request.user) 
         if form.is_valid():
             form.save()
             # Limpiar form
@@ -274,7 +274,7 @@ def confirmar_compra(request):
 @staff_member_required
 def producto_list(request):
     productos = Producto.objects.all()
-    return render(request, 'productos/productos_usuario_comun.html', {'productos': productos})
+    return render(request, 'productos/producto_list.html', {'productos': productos})
 
 def producto_add(request):
     if request.method == 'POST':
