@@ -1,0 +1,17 @@
+{% extends "clientes/base.html" %}
+{%block content %}
+    <meta charset="UTF-8">
+    <title>Productos</title>
+</head>
+<body>
+    <h1>Productos</h1>
+    <ul>
+        {% for producto in productos %}
+            <li>
+                {{ producto.nombre }} - {{ producto.precio }}
+                <a href="{% url 'add_to_cart' producto.id %}">Añadir al Carrito</a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'carrito_detail' %}">Ver Carrito</a>
+    {% endblock %}

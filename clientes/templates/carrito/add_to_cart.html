@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir al Carrito</title>
+</head>
+<body>
+    <h1>Añadir {{ producto.nombre }} al Carrito</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Añadir</button>
+    </form>
+    <a href="{% url 'index' %}">Volver a Productos</a>
+</body>
+</html>

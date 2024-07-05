@@ -1,5 +1,5 @@
 from django import forms
-from .models import Cliente, Reserva
+from .models import Cliente, Reserva, CarritoItem, Producto
 from datetime import date
 
 
@@ -54,4 +54,15 @@ class ReservaForm(forms.ModelForm):
         super(ReservaForm, self).__init__(*args, **kwargs)
         if user:
             self.fields['nombre'].initial = user.cliente.nombre
+
+
+class AddToCartForm(forms.ModelForm):
+    class Meta:
+        model = CarritoItem
+        fields = ['cantidad']
+    
+class ProductoForm(forms.ModelForm):
+    class Meta:
+        model = Producto
+        fields = ['nombre', 'precio', 'descripcion']
 

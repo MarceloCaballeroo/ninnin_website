@@ -3,9 +3,10 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from .forms import UserForm
 from django.contrib.auth.forms import UserCreationForm
-from .models import Cliente, Reserva
+from .models import Cliente, Reserva, Carrito, CarritoItem, Producto
 from django.contrib.auth.decorators import login_required
-from .forms import ReservaForm
+from .forms import ReservaForm, ProductoForm, AddToCartForm
+from django.http import HttpResponse
 from django.contrib.admin.views.decorators import staff_member_required
 
 def login_view(request):
@@ -68,7 +69,7 @@ def reserva_Form(request):
         context = {'form': form}
     return render(request, "clientes/reserva.html", context)
 
-
+##################################################################################CLIENTES #########################################################################################
 def clientes_del (request,pk):
     context={}
     try:
@@ -147,7 +148,6 @@ def clientesAdd(request):
         context = {'form': form}
         return render(request, 'clientes/clientes_add.html', context)
     
-
 @staff_member_required
 def reserva_list(request):
     reservas = Reserva.objects.all()
@@ -209,3 +209,104 @@ def custom_redirect(request):
         return redirect('crud')  # Redirigir a la página CRUD
     else:
         return redirect('index')
+    
+
+##################################################################################CARRITO#####################################################################################
+@login_required
+def producto_list(request):
+    productos = Producto.objects.all()
+    return render(request, 'productos/productos_usuario_comun.html', {'productos': productos})
+
+@login_required
+def add_to_cart(request, producto_id):
+    producto = get_object_or_404(Producto, id=producto_id)
+    carrito, created = Carrito.objects.get_or_create(user=request.user)
+    if request.method == 'POST':
+        form = AddToCartForm(request.POST)
+        if form.is_valid():
+            cantidad = form.cleaned_data['cantidad']
+            CarritoItem.objects.create(carrito=carrito, producto=producto, cantidad=cantidad)
+            return redirect('carrito_detail')
+    else:
+        form = AddToCartForm()
+    return render(request, 'carrito/add_to_cart.html', {'form': form, 'producto': producto})
+
+@login_required
+def carrito_detail(request):
+    carrito, created = Carrito.objects.get_or_create(user=request.user)
+    return render(request, 'carrito/carrito_detail.html', {'carrito': carrito})
+
+@login_required
+def remove_from_cart(request, item_id):
+    item = get_object_or_404(CarritoItem, id=item_id)
+    if request.method == 'POST':
+        item.delete()
+        return redirect('carrito_detail')
+    return redirect('carrito_detail')
+
+@login_required
+def confirmar_compra(request):
+    # Obtener el carrito del usuario actual
+    try:
+        carrito = Carrito.objects.get(user=request.user)
+    except Carrito.DoesNotExist:
+        return HttpResponse("No tienes ningún carrito.", status=404)
+
+    # Marcar todos los items del carrito como confirmados
+    carrito_items = carrito.items.filter(confirmado=False)
+    if not carrito_items.exists():
+        return HttpResponse("No hay productos en el carrito para confirmar.", status=404)
+
+    # Calcular el total antes de confirmar la compra
+    total_carrito = carrito.total_price()
+
+    for item in carrito_items:
+        item.confirmado = True
+        item.save()
+
+    # Guardar el total antes de eliminar los productos
+    total_carrito_antes = total_carrito
+
+    # Eliminar todos los items confirmados del carrito
+    carrito.items.filter(confirmado=True).delete()
+
+    return render(request, 'clientes/compra_confirmada.html', {'total_carrito_antes': total_carrito_antes})
+###################################################################################################################################################################################
+#####################################################################              PRODUCTOS            ###########################################################################
+
+def producto_add(request):
+    if request.method == 'POST':
+        form = ProductoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('crud_producto')
+    else:
+        form = ProductoForm()
+    return render(request, 'productos/producto_add.html', {'form': form})
+
+def producto_edit(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    if request.method == 'POST':
+        form = ProductoForm(request.POST, instance=producto)
+        if form.is_valid():
+            form.save()
+            return redirect('crud_producto')
+    else:
+        form = ProductoForm(instance=producto)
+    return render(request, 'productos/producto_edit.html', {'form': form})
+
+def producto_delete(request, pk):
+    producto = get_object_or_404(Producto, pk=pk)
+    if request.method == 'POST':
+        producto.delete()
+        return redirect('crud_producto')
+    return render(request, 'productos/producto_delete.html', {'producto': producto})
+
+
+@login_required
+def producto_list_usuario_comun(request):
+    productos = Producto.objects.all()
+    context = {
+        'productos': productos,
+    }
+    return render(request, 'productos/productos_usuario_comun.html', context)
